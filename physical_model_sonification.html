@@ -1,0 +1,92 @@
+<h1>Model Based Sonification</h1>
+<p>from “The Sonification Handbook”: <a href="https://sonification.de/handbook/chapters/chapter16/#S16.4">https://sonification.de/handbook/chapters/chapter16/#S16.4</a></p>
+<h2>intro</h2>
+<p>MBS - creation of processes that evolve in time to systematically sonify data<br>
+–&gt; data itself doesn’t need to have timely dimension --&gt; even better without, else parameter mapping or similar recommended<br>
+–&gt; excitation needed to start sounding: a dynamic sound that changes in time</p>
+<p>it’s a lot about the nature of the data (structure and distribution)</p>
+<p>best analogy: like a box that one tries to guess the content of by shaking it: excitation, direct audible response, many possibilities of handling<br>
+–&gt; gradually build up a mental representation</p>
+<p><strong>in short:</strong></p>
+<blockquote>
+<p>Model-Based Sonification (MBS) is defined as the general term for all concrete sonification techniques that make use of dynamic models which mathematically describe the evolution of a system in time, parameterize and configure them during initialization with the available data and offer interaction/excitation modes to the user as the interface to actively query sonic responses which depend systematically upon the temporal evolution model.<a href="#001">1</a></p>
+</blockquote>
+<blockquote>
+<p>The data neither determine the sound signal (as in audification) nor features of the sound (as in parameter mapping sonification), but instead they determine <strong>the architecture of a ‘dynamic’ model</strong> which in turn generates sound. <a href="#002">2</a></p>
+</blockquote>
+<h2>which data?</h2>
+<ul>
+<li>high-dimensional</li>
+<li>non-timely</li>
+</ul>
+<h2>constructive conditions</h2>
+<p>in order to be able to get a representative mental picture of the data’s nature, the following conditions should be provided:</p>
+<ul>
+<li>ubiquity (every action should be accompanied by sound)</li>
+<li>invariance of binding mechanism (sound producing laws always the same and structurally independent of the dataset (e.g. for comparing different datasets))</li>
+<li>immediate response: real-time sound generation</li>
+<li>sonic variability: it should be possible to produce different sounds from different interaction</li>
+<li>information richness: sounds should be complex and rich<br>
+–&gt; “MBS offers a framework for the creation of sonification models which <strong>automatically</strong> behave according to these requirements” <a href="#001">1</a></li>
+</ul>
+<h2>example: data sonogram</h2>
+<p><img src="02-data-sonogram-model-space.png" alt="Data Sonogram Model Space"><br>
+<a href="#003">3</a></p>
+<p>scatter plot of data<br>
+–&gt; excite a shock wave in data space<br>
+–&gt; wave front excites mass-spring systems: each point is mass-spring system that oscillates once it is hit by shock wave</p>
+<p>provides information about data density and clustering<br>
+parameters --&gt; stiffness / damping of individual springs</p>
+<p><a href="https://sonification.de/handbook/chapters/chapter16/">sound examples 16.2a-c</a></p>
+<h2>step-by-step procedure</h2>
+<p><img src="01-mbs-design-steps.png" alt="MBS design steps"><br>
+<a href="#002">2</a></p>
+<ol>
+<li>setup
+bridges the gap between data-space (static) and model-space (dynamic)<br>
+–&gt; what type of model?	e.g. decide to make a data sonogram</li>
+<li>dynamics
+introduction of temporal dynamics: mathematical description of motion or whatever is applied from mechanics, electrodynamics, chemistry, machine learning, …</li>
+<li>excitation
+interaction interfaces?<br>
+mouse click, keystroke, shake; hitting surfaces at different locations, squeezing, shaking, rubbing, deforming; controllers with parameter-rich interfaces (<strong>what kind of sensors could be applied?</strong>)</li>
+<li>initial state
+load and initialize data, puts system into initial position</li>
+<li>link-variables
+variables responsible for the sound signal generation from within the models’ dynamic processes<br>
+keep the arbitrariness at a minimum!<br>
+simplification needed for real-time application in higher dimensional datasets (e.g. precalculate average values before sending them to dac)</li>
+<li>listener characteristics
+single sound source vs sound scenery?<br>
+location, orientation or distance of the listener? mono vs stereo vs surround implementations?</li>
+</ol>
+<h2>examples</h2>
+<p>(we have seen the data sonogram)</p>
+<p>they all base on scatter plots --&gt; <strong>other plots thinkable, too?</strong></p>
+<h3>Tangible Data Scanning</h3>
+<p>data points located in 3D-space around the user<br>
+moving a tracked planar object excites datapoints (as mass-spring system) when hit</p>
+<p><a href="https://sonification.de/handbook/chapters/chapter16/">sound example S16.3: Tangible Data Scanning Video</a></p>
+<h3>Data Crystallization and Sonification</h3>
+<p>fixed “molecules” (data points)<br>
+excitement: mouse click places crystallization seed<br>
+“the eigenvalues determine the harmonic series while the overall variance determines the size and thereby the fundamental frequency of the sound” <a href="#004">4</a><br>
+growth --&gt; pitch drops, brightness signature modulates</p>
+<p><a href="https://sonification.de/handbook/chapters/chapter16/">sound example S16.5: Data Crystallization Sonification</a></p>
+<p>suitable for clustering of data and local dimensionality structure of clusters</p>
+<h3>Growing Neural Gas Sonification</h3>
+<p>data points as “neurons”, each contributing to the overall sound:<br>
+edges add up to overall restoring force --&gt; higher frequency of that neuron oscillating around its position<br>
+each neuron creates a sine wave, number of edges influencing the stiffness</p>
+<p>allowing perception of overall connectivity of the graph structure<br>
+also reveals overfitting (shows where randomness of data is made audible instead of underlying relationship)</p>
+<p><a href="https://sonification.de/handbook/chapters/chapter16/">media file S16.9: video of a GNG growth for a 2d spiral data set</a></p>
+<h2>discussion:</h2>
+<p>what data suitable? any examples?<br>
+what sensors suitable?<br>
+what plot types interesting?</p>
+<h2>literature</h2>
+<p><a name="001">[1]</a> - Herrmann, T., Hunt, A., Neuhoff, J. G. (2011): The Sonification Handbook. 403. Berlin: Logos Publishing House.<br>
+<a name="002">[2]</a> - ibid, 404.<br>
+<a name="003">[3]</a> - ibid, 409.<br>
+<a name="004">[4]</a> - ibid, 411.</p>
