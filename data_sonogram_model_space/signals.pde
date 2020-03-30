@@ -2,8 +2,12 @@ int countIntersections = 0;
 
 class Signal
 {
+
+// int pointCounter = 0; // increments for each intersected point; makes sure that the signal does not grow beyond that.
+
 int signal_magnitude = 0;
 PVector position;
+
 
 int xPos, yPos;
 Signal(int x_in, int y_in)
@@ -15,6 +19,7 @@ Signal(int x_in, int y_in)
 
 void propagateSignal()
 {
+  // if (pointCounter < selectedDatapoints.size())
         signal_magnitude += signalGrowthSpeed;
 }
 
@@ -36,10 +41,11 @@ void checkIntersection()
                         activeDataPoints.add(dp);
                         countIntersections = activeDataPoints.size();
                         println("active intersections: " + countIntersections);
-                        dp.intersectionTime = millis() + 200;
+                        dp.intersectionTime = millis();
                         println(millis() + " " + dp.value + " intersect!");
                         // dp.sound.play(dp.value * data_to_freq_ratio, loudness);
-                        println("loduness = " + 1/float(countIntersections));
+                        println("loduness = " + 0.8/float(countIntersections));
+                        // pointCounter++;
                 }
 
 

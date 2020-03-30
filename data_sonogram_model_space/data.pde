@@ -2,6 +2,7 @@ ArrayList<Datapoint> allDataPoints = new ArrayList<Datapoint>();
 ArrayList<Datapoint> activeDataPoints = new ArrayList<Datapoint>(); // holds Datapoints that play sound (i.e. they are in "cooldown")
 ArrayList<Datapoint> selectedDatapoints = new ArrayList<Datapoint>();
 
+
 class Datapoint {
 // data content
 float value;
@@ -13,7 +14,7 @@ color defaultColor;
 color strokeColor = color(63, 58, 223);
 
 // intersection with signal
-boolean alreadyIntersected = false;
+boolean ready = false;
 int intersectionTime = 0;
 
 // making sound
@@ -34,17 +35,18 @@ void draw()
         ellipse(xPos, yPos, 5, 5);
 }
 
-void cooldown()
+void cooldown(int cooldowntime)
 {
-        if (millis() < intersectionTime)
+        if (millis() < intersectionTime + cooldowntime)
         {
+            ready = false;
                 strokeColor = color(58, 223, 174);
                 sound.play(value * data_to_freq_ratio, 0.2 + 0.8 / float(countIntersections)); // TODO: no clipping!!!
         }
         else{
                 sound.stop();
                 strokeColor = color(63, 58, 223);
-                alreadyIntersected = false;
+                ready = true;
                 activeDataPoints.remove(this);
         }
 }
