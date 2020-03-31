@@ -24,6 +24,10 @@ float dataStep = 1;
 float data_to_freq_ratio; // maps tableMaxValue to 1000 Hertz
 int max_freq = 1000; // in Hertz
 float loudness = 0.7; // loudness for sound playback
+float globalAttackTime = 0;
+float globalSustainTime = 0.02;
+float globalSustainLevel = 0.03;
+float globalReleaseTime = 0;
 
 void setup()
 {
@@ -163,7 +167,7 @@ void draw()
         }
         // offscreen.endDraw();
         for (Datapoint adp : selectedDatapoints ) {
-                adp.cooldown();
+                adp.cooldown(50);
         }
 //------------------------------- DRAW MOUSE ACTION ----------------------------
 

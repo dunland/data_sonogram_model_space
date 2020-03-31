@@ -42,6 +42,8 @@ void checkIntersection()
                         countIntersections = activeDataPoints.size();
                         println("active intersections: " + countIntersections);
                         dp.intersectionTime = millis();
+                        dp.sound.amp(0.8 / float(countIntersections));
+                        dp.env.play(dp.sound, globalAttackTime, globalSustainTime, globalSustainLevel, globalReleaseTime);
                         println(millis() + " " + dp.value + " intersect!");
                         // dp.sound.play(dp.value * data_to_freq_ratio, loudness);
                         println("loduness = " + 0.8/float(countIntersections));
