@@ -1,3 +1,11 @@
+/* DATA SONOGRAM MODEL SPACE
+v. 1.0
+by David Unland
+github.com/dunland
+
+March 2020
+*/
+
 import processing.sound.*;
 
 // PGraphics offscreen;
@@ -18,22 +26,27 @@ Table table;
 float tableCellWidth;
 float tableCellHeight;
 double tableMaxValue = Double.NEGATIVE_INFINITY;
-int dataColumn = 1; // TODO: get right column automatically
+int dataColumn = 0; // TODO: get right column automatically
 float dataStep = 1;
 // DATA TO SOUND
 float data_to_freq_ratio; // maps tableMaxValue to 1000 Hertz
 int max_freq = 1000; // in Hertz
 float loudness = 0.7; // loudness for sound playback
 
+TriOsc globalSound;
+
+
 void setup()
 {
+
+
         size(800,600, P2D);
         // offscreen = createGraphics(800,600);
         maxSignalExtent = width/3;
 
         //-------------------------- SETUP THE INPUT DATA
-        // table = loadTable("data.csv", "header");
-        table = loadTable("sea_ice_northpole_2018.csv", "header");
+         table = loadTable("randomData.csv", "header");
+        //table = loadTable("sea_ice_northpole_2018.csv", "header");
         tableCellWidth = (width - (space_left + space_right)) / float(table.getRowCount());
 
         // dataStep = (table.getRowCount() > 1000) ? table.getRowCount() / 1000 : 1;
@@ -87,11 +100,11 @@ void draw()
 
         // help text
         fill(255);
-        textAlign(LEFT, BOTTOM);
+        textAlign(LEFT, TOP);
         textSize(14);
-        text("DATA SONOGRAM MODEL SPACE v.1.0 by David Unland", 20, 20);
+        text("DATA SONOGRAM MODEL SPACE v.1.0", 20, 20);
         textSize(12);
-        text("press left mouse button to excite the data space", 20, 32);
+        text("press left mouse button to excite the data space\nscroll mouse to change excitation scope", 20, 32);
 
 //----------------------- DRAW PROPAGATING SIGNALS -----------------------------
         if (list_of_signals.size() > 0) {
@@ -103,12 +116,12 @@ void draw()
                         sig.drawSignal();
                 }
 
-
                 // destroy signals that have reached limit
                 for (int i = 0; i<list_of_signals.size(); i++)
                 {
                         if (list_of_signals.get(i).signal_magnitude > maxSignalExtent) {
                                 list_of_signals.remove(i);
+                                globalSound.stop();
                         }
                 }
         }
@@ -162,9 +175,13 @@ void draw()
                 dp.draw();
         }
         // offscreen.endDraw();
+        // for (Signal signal : list_of_signals)
+        // {
+
         for (Datapoint adp : selectedDatapoints ) {
-                adp.cooldown();
+                adp.cooldown(50);
         }
+        // }
 //------------------------------- DRAW MOUSE ACTION ----------------------------
 
         if (list_of_signals.size() == 0)
@@ -176,8 +193,11 @@ void draw()
         }
 }
 
-void mousePressed()
+void mouseReleased()
 {
+  globalSound = new TriOsc(this);
+
+        globalSound.play(100, loudness);
         list_of_signals.add(new Signal(mouseX, mouseY));
 
         for (Datapoint datap : allDataPoints)

@@ -18,7 +18,7 @@ boolean ready = false;
 int intersectionTime = 0;
 
 // making sound
-TriOsc sound = new TriOsc(data_sonogram_model_space.this);
+//TriOsc sound = new TriOsc(data_sonogram_model_space.this);
 
 Datapoint(float x_in, float y_in, int val_in)
 {
@@ -41,10 +41,10 @@ void cooldown(int cooldowntime)
         {
             ready = false;
                 strokeColor = color(58, 223, 174);
-                sound.play(value * data_to_freq_ratio, 0.2 + 0.8 / float(countIntersections)); // TODO: no clipping!!!
+                //sound.play(value * data_to_freq_ratio, 0.8 / float(countIntersections)); // TODO: no clipping!!!
         }
         else{
-                sound.stop();
+                // sound.stop();
                 strokeColor = color(63, 58, 223);
                 ready = true;
                 activeDataPoints.remove(this);

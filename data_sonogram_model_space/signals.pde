@@ -39,11 +39,13 @@ void checkIntersection()
                 {
                         // dp.alreadyIntersected = true;
                         activeDataPoints.add(dp);
-                        countIntersections = activeDataPoints.size();
+                        countIntersections = activeDataPoints.size() / 2;
                         println("active intersections: " + countIntersections);
                         dp.intersectionTime = millis();
                         println(millis() + " " + dp.value + " intersect!");
-                        // dp.sound.play(dp.value * data_to_freq_ratio, loudness);
+                        // dp.sound.play(dp.value * data_to_freq_ratio, 0.8/float(countIntersections));
+                        // globalSound.add(dp.value * data_to_freq_ratio);
+                        globalSound.add(0.5);
                         println("loduness = " + 0.8/float(countIntersections));
                         // pointCounter++;
                 }
